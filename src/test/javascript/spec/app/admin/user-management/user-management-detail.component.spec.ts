@@ -42,7 +42,7 @@ describe('Component Tests', () => {
                 // GIVEN
 
                 spyOn(service, 'find').and.returnValue(Observable.of(new HttpResponse({
-                    body: new User(1, 'user', 'first', 'last', 'first@last.com', true, 'en', ['ROLE_USER'], 'admin', null, null, null)
+                    body: new User(1, 'user', 'first', 'last', 'first@last.com', true, 'en', ['ROLE_ADMIN', 'ROLE_TRIADOR', 'ROLE_FINALIZADOR'], 'admin', null, null, null)
                 })));
 
                 // WHEN
@@ -58,7 +58,7 @@ describe('Component Tests', () => {
                     email: 'first@last.com',
                     activated: true,
                     langKey: 'en',
-                    authorities: ['ROLE_USER'],
+                    authorities: ['ROLE_ADMIN', 'ROLE_TRIADOR', 'ROLE_FINALIZADOR'],
                     createdBy: 'admin',
                     createdDate: null,
                     lastModifiedBy: null,

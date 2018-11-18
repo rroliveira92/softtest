@@ -42,7 +42,9 @@ public final class SecurityUtils {
         SecurityContext securityContext = SecurityContextHolder.getContext();
         return Optional.ofNullable(securityContext.getAuthentication())
             .map(authentication -> authentication.getAuthorities().stream()
-                .noneMatch(grantedAuthority -> grantedAuthority.getAuthority().equals(AuthoritiesConstants.ANONYMOUS)))
+            .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals(AuthoritiesConstants.ADMIN) 
+            || grantedAuthority.getAuthority().equals(AuthoritiesConstants.FINALIZADOR) 
+            ||grantedAuthority.getAuthority().equals(AuthoritiesConstants.TRIADOR)))
             .orElse(false);
     }
 
