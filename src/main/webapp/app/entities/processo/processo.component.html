@@ -1,0 +1,78 @@
+<div>
+    <h2>
+        <span jhiTranslate="softtestApp.processo.home.title">Processos</span>
+        <button class="btn btn-primary float-right jh-create-entity create-processo" [routerLink]="['/', { outlets: { popup: ['processo-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span  jhiTranslate="softtestApp.processo.home.createLabel">
+            Create new Processo
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="processos">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="descricao"><span jhiTranslate="softtestApp.processo.descricao">Descricao</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="dataCadastro"><span jhiTranslate="softtestApp.processo.dataCadastro">Data Cadastro</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="dataAtualizacao"><span jhiTranslate="softtestApp.processo.dataAtualizacao">Data Atualizacao</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="usuarioCadastro.id"><span jhiTranslate="softtestApp.processo.usuarioCadastro">Usuario Cadastro</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="usuarioAtualizacao.id"><span jhiTranslate="softtestApp.processo.usuarioAtualizacao">Usuario Atualizacao</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let processo of processos ;trackBy: trackId">
+                <td><a [routerLink]="['../processo', processo.id ]">{{processo.id}}</a></td>
+                <td>{{processo.descricao}}</td>
+                <td>{{processo.dataCadastro | date:'medium'}}</td>
+                <td>{{processo.dataAtualizacao | date:'medium'}}</td>
+                <td>
+                    {{processo.usuarioCadastro?.id}}
+                </td>
+                <td>
+                    {{processo.usuarioAtualizacao?.id}}
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../processo', processo.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'processo/'+ processo.id + '/edit'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'processo/'+ processo.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="processos && processos.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

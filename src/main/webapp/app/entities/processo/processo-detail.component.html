@@ -1,0 +1,48 @@
+
+<div *ngIf="processo">
+    <h2><span jhiTranslate="softtestApp.processo.detail.title">Processo</span> {{processo.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="softtestApp.processo.descricao">Descricao</span></dt>
+        <dd>
+            <span>{{processo.descricao}}</span>
+        </dd>
+        <dt><span jhiTranslate="softtestApp.processo.dataCadastro">Data Cadastro</span></dt>
+        <dd>
+            <span>{{processo.dataCadastro | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="softtestApp.processo.dataAtualizacao">Data Atualizacao</span></dt>
+        <dd>
+            <span>{{processo.dataAtualizacao | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="softtestApp.processo.usuarioCadastro">Usuario Cadastro</span></dt>
+        <dd>
+            {{processo.usuarioCadastro?.id}}
+        </dd>
+        <dt><span jhiTranslate="softtestApp.processo.usuarioAtualizacao">Usuario Atualizacao</span></dt>
+        <dd>
+            {{processo.usuarioAtualizacao?.id}}
+        </dd>
+        <dt><span jhiTranslate="softtestApp.processo.usuariosParecer">Usuarios Parecer</span></dt>
+        <dd>
+            <span *ngFor="let usuariosParecer of processo.usuariosParecers; let last = last">
+                {{usuariosParecer.id}}{{last ? '' : ', '}}
+            </span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'processo/'+ processo.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

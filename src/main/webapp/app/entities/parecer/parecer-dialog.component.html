@@ -1,0 +1,74 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myParecerLabel" jhiTranslate="softtestApp.parecer.home.createOrEditLabel">Create or edit a Parecer</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!parecer.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="parecer.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="softtestApp.parecer.parecer" for="field_parecer">Parecer</label>
+            <input type="text" class="form-control" name="parecer" id="field_parecer"
+                [(ngModel)]="parecer.parecer" required/>
+            <div [hidden]="!(editForm.controls.parecer?.dirty && editForm.controls.parecer?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.parecer?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="softtestApp.parecer.dataCadastro" for="field_dataCadastro">Data Cadastro</label>
+            <div class="d-flex">
+                <input id="field_dataCadastro" type="datetime-local" class="form-control" name="dataCadastro" [(ngModel)]="parecer.dataCadastro"
+                required/>
+            </div>
+            <div [hidden]="!(editForm.controls.dataCadastro?.dirty && editForm.controls.dataCadastro?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.dataCadastro?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.dataCadastro?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+                    This field should be a date and time.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="softtestApp.parecer.dataAtualizacao" for="field_dataAtualizacao">Data Atualizacao</label>
+            <div class="d-flex">
+                <input id="field_dataAtualizacao" type="datetime-local" class="form-control" name="dataAtualizacao" [(ngModel)]="parecer.dataAtualizacao"
+                />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="softtestApp.parecer.usuario" for="field_usuario">Usuario</label>
+            <select class="form-control" id="field_usuario" name="usuario" [(ngModel)]="parecer.usuario" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="userOption.id === parecer.usuario?.id ? parecer.usuario : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="softtestApp.parecer.processo" for="field_processo">Processo</label>
+            <select class="form-control" id="field_processo" name="processo" [(ngModel)]="parecer.processo" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="processoOption.id === parecer.processo?.id ? parecer.processo : processoOption" *ngFor="let processoOption of processos; trackBy: trackProcessoById">{{processoOption.id}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

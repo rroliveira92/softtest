@@ -1,0 +1,44 @@
+
+<div *ngIf="parecer">
+    <h2><span jhiTranslate="softtestApp.parecer.detail.title">Parecer</span> {{parecer.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="softtestApp.parecer.parecer">Parecer</span></dt>
+        <dd>
+            <span>{{parecer.parecer}}</span>
+        </dd>
+        <dt><span jhiTranslate="softtestApp.parecer.dataCadastro">Data Cadastro</span></dt>
+        <dd>
+            <span>{{parecer.dataCadastro | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="softtestApp.parecer.dataAtualizacao">Data Atualizacao</span></dt>
+        <dd>
+            <span>{{parecer.dataAtualizacao | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="softtestApp.parecer.usuario">Usuario</span></dt>
+        <dd>
+            {{parecer.usuario?.id}}
+        </dd>
+        <dt><span jhiTranslate="softtestApp.parecer.processo">Processo</span></dt>
+        <dd>
+            <div *ngIf="parecer.processo">
+                <a [routerLink]="['/processo', parecer.processo?.id]">{{parecer.processo?.id}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'parecer/'+ parecer.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

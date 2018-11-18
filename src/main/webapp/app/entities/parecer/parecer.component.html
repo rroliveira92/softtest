@@ -1,0 +1,80 @@
+<div>
+    <h2>
+        <span jhiTranslate="softtestApp.parecer.home.title">Parecers</span>
+        <button class="btn btn-primary float-right jh-create-entity create-parecer" [routerLink]="['/', { outlets: { popup: ['parecer-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span  jhiTranslate="softtestApp.parecer.home.createLabel">
+            Create new Parecer
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="parecers">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="parecer"><span jhiTranslate="softtestApp.parecer.parecer">Parecer</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="dataCadastro"><span jhiTranslate="softtestApp.parecer.dataCadastro">Data Cadastro</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="dataAtualizacao"><span jhiTranslate="softtestApp.parecer.dataAtualizacao">Data Atualizacao</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="usuario.id"><span jhiTranslate="softtestApp.parecer.usuario">Usuario</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="processo.id"><span jhiTranslate="softtestApp.parecer.processo">Processo</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let parecer of parecers ;trackBy: trackId">
+                <td><a [routerLink]="['../parecer', parecer.id ]">{{parecer.id}}</a></td>
+                <td>{{parecer.parecer}}</td>
+                <td>{{parecer.dataCadastro | date:'medium'}}</td>
+                <td>{{parecer.dataAtualizacao | date:'medium'}}</td>
+                <td>
+                    {{parecer.usuario?.id}}
+                </td>
+                <td>
+                    <div *ngIf="parecer.processo">
+                        <a [routerLink]="['../processo', parecer.processo?.id ]" >{{parecer.processo?.id}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../parecer', parecer.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'parecer/'+ parecer.id + '/edit'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'parecer/'+ parecer.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="parecers && parecers.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

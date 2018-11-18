@@ -1,0 +1,26 @@
+
+{
+    "softtestApp": {
+        "parecer" : {
+            "home": {
+                "title": "Parecers",
+                "createLabel": "Criar novo Parecer",
+                "createOrEditLabel": "Criar ou editar Parecer"
+            },
+            "created": "Um novo Parecer foi criado com o identificador {{ param }}",
+            "updated": "Um Parecer foi atualizado com o identificador {{ param }}",
+            "deleted": "Um Parecer foi deletado com o identificador {{ param }}",
+            "delete": {
+                "question": "Tem certeza de que deseja excluir Parecer {{ id }}?"
+            },
+            "detail": {
+                "title": "Parecer"
+            },
+            "parecer": "Parecer",
+            "dataCadastro": "Data Cadastro",
+            "dataAtualizacao": "Data Atualizacao",
+            "usuario": "Usuario",
+            "processo": "Processo"
+        }
+    }
+}

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity Processo.
+    -->
+    <changeSet id="20181118193801-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="usuario_cadastro_id"
+                                 baseTableName="tb_processo"
+                                 constraintName="fk_processo_usuario_cadastro_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="jhi_user"/>
+
+        <addForeignKeyConstraint baseColumnNames="usuario_atualizacao_id"
+                                 baseTableName="tb_processo"
+                                 constraintName="fk_processo_usuario_atualizacao_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="jhi_user"/>
+
+        <addForeignKeyConstraint baseColumnNames="processos_id"
+                                 baseTableName="processo_usuarios_parecer"
+                                 constraintName="fk_processo_usuarios_parecer_processos_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="tb_processo"/>
+        <addForeignKeyConstraint baseColumnNames="usuarios_parecers_id"
+                                 baseTableName="processo_usuarios_parecer"
+                                 constraintName="fk_processo_usuarios_parecer_usuarios_parecers_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="jhi_user"/>
+        
+    </changeSet>
+</databaseChangeLog>
