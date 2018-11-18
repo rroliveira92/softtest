@@ -464,7 +464,7 @@
                     <driver>org.postgresql.Driver</driver>
                     <url>jdbc:postgresql://localhost:5432/softtest</url>
                     <defaultSchemaName></defaultSchemaName>
-                    <username>softtest</username>
+                    <username>postgres</username>
                     <password></password>
                     <referenceUrl>hibernate:spring:com.br.se.r92.domain?dialect=org.hibernate.dialect.PostgreSQL82Dialect&amp;hibernate.physical_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy&amp;hibernate.implicit_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy</referenceUrl>
                     <verbose>true</verbose>
