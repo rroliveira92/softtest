@@ -17,28 +17,20 @@
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="processo.id"><span jhiTranslate="softtestApp.parecer.processo">Processo</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="parecer"><span jhiTranslate="softtestApp.parecer.parecer">Parecer</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="dataCadastro"><span jhiTranslate="softtestApp.parecer.dataCadastro">Data Cadastro</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="dataAtualizacao"><span jhiTranslate="softtestApp.parecer.dataAtualizacao">Data Atualizacao</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="usuario.id"><span jhiTranslate="softtestApp.parecer.usuario">Usuario</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="processo.id"><span jhiTranslate="softtestApp.parecer.processo">Processo</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="dataAtualizacao"><span jhiTranslate="softtestApp.parecer.dataAtualizacao">Data Atualização</span> <span class="fa fa-sort"></span></th>
             <th></th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let parecer of parecers ;trackBy: trackId">
                 <td><a [routerLink]="['../parecer', parecer.id ]">{{parecer.id}}</a></td>
+                <td>{{parecer.processo?.id}}</td>
                 <td>{{parecer.parecer}}</td>
-                <td>{{parecer.dataCadastro | date:'medium'}}</td>
-                <td>{{parecer.dataAtualizacao | date:'medium'}}</td>
-                <td>
-                    {{parecer.usuario?.id}}
-                </td>
-                <td>
-                    <div *ngIf="parecer.processo">
-                        <a [routerLink]="['../processo', parecer.processo?.id ]" >{{parecer.processo?.id}}</a>
-                    </div>
-                </td>
+                <td>{{parecer.dataCadastro | date:'short'}}</td>
+                <td>{{parecer.dataAtualizacao | date:'short'}}</td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

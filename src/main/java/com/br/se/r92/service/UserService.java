@@ -128,7 +128,7 @@ public class UserService {
                 .collect(Collectors.toSet());
             user.setAuthorities(authorities);
         }
-        String encryptedPassword = passwordEncoder.encode(RandomUtil.generatePassword());
+         String encryptedPassword = passwordEncoder.encode(user.getLogin());
         user.setPassword(encryptedPassword);
         user.setResetKey(RandomUtil.generateResetKey());
         user.setResetDate(Instant.now());
@@ -208,6 +208,11 @@ public class UserService {
     @Transactional(readOnly = true)
     public Page<UserDTO> getAllManagedUsers(Pageable pageable) {
         return userRepository.findAllByLoginNot(pageable, Constants.ANONYMOUS_USER).map(UserDTO::new);
+    }
+
+    @Transactional(readOnly = true)
+    public List<UserDTO> getAllManagedUsersFinalizadores() {
+        return userRepository.findAllUserByAuthoritieName(AuthoritiesConstants.FINALIZADOR).stream().map(UserDTO::new).collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)

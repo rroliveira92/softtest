@@ -32,7 +32,7 @@ export const parecerRoute: Routes = [
             'pagingParams': ParecerResolvePagingParams
         },
         data: {
-            authorities: ['ROLE_ADMIN', 'ROLE_TRIADOR', 'ROLE_FINALIZADOR'],
+            authorities: ['ROLE_FINALIZADOR'],
             pageTitle: 'softtestApp.parecer.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -40,7 +40,7 @@ export const parecerRoute: Routes = [
         path: 'parecer/:id',
         component: ParecerDetailComponent,
         data: {
-            authorities: ['ROLE_ADMIN', 'ROLE_TRIADOR', 'ROLE_FINALIZADOR'],
+            authorities: ['ROLE_FINALIZADOR'],
             pageTitle: 'softtestApp.parecer.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -52,7 +52,7 @@ export const parecerPopupRoute: Routes = [
         path: 'parecer-new',
         component: ParecerPopupComponent,
         data: {
-            authorities: ['ROLE_ADMIN', 'ROLE_TRIADOR', 'ROLE_FINALIZADOR'],
+            authorities: ['ROLE_FINALIZADOR'],
             pageTitle: 'softtestApp.parecer.home.title'
         },
         canActivate: [UserRouteAccessService],
@@ -62,7 +62,7 @@ export const parecerPopupRoute: Routes = [
         path: 'parecer/:id/edit',
         component: ParecerPopupComponent,
         data: {
-            authorities: ['ROLE_ADMIN', 'ROLE_TRIADOR', 'ROLE_FINALIZADOR'],
+            authorities: ['ROLE_FINALIZADOR'],
             pageTitle: 'softtestApp.parecer.home.title'
         },
         canActivate: [UserRouteAccessService],
@@ -72,7 +72,7 @@ export const parecerPopupRoute: Routes = [
         path: 'parecer/:id/delete',
         component: ParecerDeletePopupComponent,
         data: {
-            authorities: ['ROLE_ADMIN', 'ROLE_TRIADOR', 'ROLE_FINALIZADOR'],
+            authorities: ['ROLE_FINALIZADOR'],
             pageTitle: 'softtestApp.parecer.home.title'
         },
         canActivate: [UserRouteAccessService],

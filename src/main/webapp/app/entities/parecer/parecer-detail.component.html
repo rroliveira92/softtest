@@ -4,6 +4,12 @@
     <hr>
     <jhi-alert-error></jhi-alert-error>
     <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="softtestApp.parecer.processo">Processo</span></dt>
+        <dd>
+            <div *ngIf="parecer.processo">
+                <a [routerLink]="['/processo', parecer.processo?.id]">{{parecer.processo?.id}}</a>
+            </div>
+        </dd>
         <dt><span jhiTranslate="softtestApp.parecer.parecer">Parecer</span></dt>
         <dd>
             <span>{{parecer.parecer}}</span>
@@ -15,16 +21,6 @@
         <dt><span jhiTranslate="softtestApp.parecer.dataAtualizacao">Data Atualizacao</span></dt>
         <dd>
             <span>{{parecer.dataAtualizacao | date:'medium'}}</span>
-        </dd>
-        <dt><span jhiTranslate="softtestApp.parecer.usuario">Usuario</span></dt>
-        <dd>
-            {{parecer.usuario?.id}}
-        </dd>
-        <dt><span jhiTranslate="softtestApp.parecer.processo">Processo</span></dt>
-        <dd>
-            <div *ngIf="parecer.processo">
-                <a [routerLink]="['/processo', parecer.processo?.id]">{{parecer.processo?.id}}</a>
-            </div>
         </dd>
     </dl>
 

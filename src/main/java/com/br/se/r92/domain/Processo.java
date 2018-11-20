@@ -4,6 +4,10 @@ package com.br.se.r92.domain;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashSet;
@@ -15,13 +19,14 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "tb_processo")
+@EntityListeners(AuditingEntityListener.class)
 public class Processo implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
-    @SequenceGenerator(name = "sequenceGenerator")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Processo")
+    @SequenceGenerator(name = "Processo", allocationSize = 1, initialValue = 1, sequenceName = "sq_processo")
     private Long id;
 
     @NotNull
@@ -29,9 +34,11 @@ public class Processo implements Serializable {
     private String descricao;
 
     @NotNull
+    @CreatedDate
     @Column(name = "data_cadastro", nullable = false)
     private Instant dataCadastro;
 
+    @LastModifiedDate
     @Column(name = "data_atualizacao")
     private Instant dataAtualizacao;
 

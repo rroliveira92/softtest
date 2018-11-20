@@ -29,8 +29,8 @@ public class User extends AbstractAuditingEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
-    @SequenceGenerator(name = "sequenceGenerator")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "User")
+    @SequenceGenerator(name = "User", allocationSize = 1, initialValue = 1, sequenceName = "sq_user")
     private Long id;
 
     @NotNull
@@ -83,13 +83,11 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Column(name = "reset_date")
     private Instant resetDate = null;
 
-    @JsonIgnore
     @ManyToMany
     @JoinTable(
         name = "jhi_user_authority",
         joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
         inverseJoinColumns = {@JoinColumn(name = "authority_name", referencedColumnName = "name")})
-
     @BatchSize(size = 20)
     private Set<Authority> authorities = new HashSet<>();
 
@@ -194,6 +192,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
         this.langKey = langKey;
     }
 
+    @JsonIgnore
     public Set<Authority> getAuthorities() {
         return authorities;
     }

@@ -16,6 +16,7 @@ export class UserMgmtDialogComponent implements OnInit {
     user: User;
     languages: any[];
     authorities: any[];
+    authoritiesUser: any[];
     isSaving: Boolean;
 
     constructor(
@@ -34,6 +35,7 @@ export class UserMgmtDialogComponent implements OnInit {
         this.languageHelper.getAll().then((languages) => {
             this.languages = languages;
         });
+        this.authoritiesUser = this.user.authorities;
     }
 
     clear() {
@@ -42,10 +44,19 @@ export class UserMgmtDialogComponent implements OnInit {
 
     save() {
         this.isSaving = true;
+        this.checkPapel();
         if (this.user.id !== null) {
             this.userService.update(this.user).subscribe((response) => this.onSaveSuccess(response), () => this.onSaveError());
         } else {
             this.userService.create(this.user).subscribe((response) => this.onSaveSuccess(response), () => this.onSaveError());
+        }
+    }
+
+    private checkPapel() {
+        if (typeof this.user.authorities === 'string') {
+            const authoritiesArray = [];
+            authoritiesArray.push(this.user.authorities);
+            this.user.authorities = authoritiesArray;
         }
     }
 

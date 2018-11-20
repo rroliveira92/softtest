@@ -1,8 +1,10 @@
 <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
 
     <div class="modal-header">
-        <h4 class="modal-title" id="myUserLabel" jhiTranslate="userManagement.home.createOrEditLabel">
+        <h4 class="modal-title" id="myUserLabel" jhiTranslate="userManagement.home.editLabel" *ngIf="user.id">
             Create or edit a User</h4>
+        <h4 class="modal-title" id="myUserLabel" jhiTranslate="userManagement.home.createLabelForm" *ngIf="!user.id">
+                Create or edit a User</h4>
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
             (click)="clear()">&times;</button>
     </div>
@@ -40,7 +42,7 @@
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="userManagement.firstName">First Name</label>
             <input type="text" class="form-control" name="firstName" #firstNameInput="ngModel"
-                   [(ngModel)]="user.firstName" maxlength="50">
+                   [(ngModel)]="user.firstName" maxlength="50" required>
 
             <div *ngIf="firstNameInput.dirty && firstNameInput.invalid">
                 <small class="form-text text-danger"
@@ -53,7 +55,7 @@
         <div class="form-group">
             <label jhiTranslate="userManagement.lastName">Last Name</label>
             <input type="text" class="form-control" name="lastName" #lastNameInput="ngModel"
-                   [(ngModel)]="user.lastName" maxlength="50">
+                   [(ngModel)]="user.lastName" maxlength="50" required>
 
             <div *ngIf="lastNameInput.dirty && lastNameInput.invalid">
                 <small class="form-text text-danger"
@@ -92,24 +94,19 @@
                  </small>
             </div>
         </div>
-        <div class="form-check">
-            <label class="form-check-label" for="activated">
-                <input class="form-check-input" [disabled]="user.id === null" type="checkbox" id="activated" name="activated" [(ngModel)]="user.activated">
-                <span jhiTranslate="userManagement.activated">Activated</span>
-            </label>
-        </div>
 
-        <div class="form-group" *ngIf="languages && languages.length > 0">
-            <label jhiTranslate="userManagement.langKey">Lang Key</label>
-            <select class="form-control" id="langKey" name="langKey" [(ngModel)]="user.langKey">
-                <option *ngFor="let language of languages" [value]="language">{{language | findLanguageFromKey}}</option>
-            </select>
-        </div>
         <div class="form-group">
             <label jhiTranslate="userManagement.profiles">Profiles</label>
-            <select class="form-control" multiple name="authority" [(ngModel)]="user.authorities">
+            <select class="form-control" name="authority" [(ngModel)]="user.authorities" required>
                 <option *ngFor="let authority of authorities" [value]="authority">{{authority}}</option>
             </select>
+        </div>
+
+        <div class="form-check" *ngIf="user.id">
+            <label class="form-check-label" for="activated">
+                <input class="form-check-input" type="checkbox" id="activated" name="activated" [(ngModel)]="user.activated">
+                <span jhiTranslate="userManagement.activated">Activated</span>
+            </label>
         </div>
     </div>
     <div class="modal-footer">

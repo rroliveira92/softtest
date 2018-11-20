@@ -54,7 +54,7 @@ public class ProcessoResource {
      */
     @PostMapping("/processos")
     @Timed
-    public ResponseEntity<Processo> createProcesso(@Valid @RequestBody Processo processo) throws URISyntaxException {
+    public ResponseEntity<Processo> createProcesso(@RequestBody Processo processo) throws URISyntaxException {
         log.debug("REST request to save Processo : {}", processo);
         if (processo.getId() != null) {
             throw new BadRequestAlertException("A new processo cannot already have an ID", ENTITY_NAME, "idexists");

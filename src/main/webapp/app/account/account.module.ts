@@ -4,7 +4,6 @@ import { RouterModule } from '@angular/router';
 import { SofttestSharedModule } from '../shared';
 
 import {
-    Register,
     ActivateService,
     PasswordService,
     PasswordResetInitService,
@@ -12,7 +11,6 @@ import {
     SessionsService,
     SessionsComponent,
     PasswordStrengthBarComponent,
-    RegisterComponent,
     ActivateComponent,
     PasswordComponent,
     PasswordResetInitComponent,
@@ -28,7 +26,6 @@ import {
     ],
     declarations: [
         ActivateComponent,
-        RegisterComponent,
         PasswordComponent,
         PasswordStrengthBarComponent,
         PasswordResetInitComponent,
@@ -38,7 +35,6 @@ import {
     ],
     providers: [
         SessionsService,
-        Register,
         ActivateService,
         PasswordService,
         PasswordResetInitService,

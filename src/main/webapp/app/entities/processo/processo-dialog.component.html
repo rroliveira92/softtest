@@ -1,17 +1,20 @@
 <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
 
     <div class="modal-header">
-        <h4 class="modal-title" id="myProcessoLabel" jhiTranslate="softtestApp.processo.home.createOrEditLabel">Create or edit a Processo</h4>
+        <h4 class="modal-title" id="myProcessoLabel" *ngIf="processo.id" jhiTranslate="softtestApp.processo.home.editLabel">Create or edit a Processo</h4>
+        <h4 class="modal-title" id="myProcessoLabel" *ngIf="!processo.id" jhiTranslate="softtestApp.processo.home.createLabelForm">Create or edit a Processo</h4>
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
                 (click)="clear()">&times;</button>
     </div>
     <div class="modal-body">
         <jhi-alert-error></jhi-alert-error>
+        
         <div class="form-group" [hidden]="!processo.id">
             <label for="id" jhiTranslate="global.field.id">ID</label>
             <input type="text" class="form-control" id="id" name="id"
                    [(ngModel)]="processo.id" readonly />
         </div>
+
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="softtestApp.processo.descricao" for="field_descricao">Descricao</label>
             <input type="text" class="form-control" name="descricao" id="field_descricao"
@@ -23,51 +26,14 @@
                 </small>
             </div>
         </div>
-        <div class="form-group">
-            <label class="form-control-label" jhiTranslate="softtestApp.processo.dataCadastro" for="field_dataCadastro">Data Cadastro</label>
-            <div class="d-flex">
-                <input id="field_dataCadastro" type="datetime-local" class="form-control" name="dataCadastro" [(ngModel)]="processo.dataCadastro"
-                required/>
-            </div>
-            <div [hidden]="!(editForm.controls.dataCadastro?.dirty && editForm.controls.dataCadastro?.invalid)">
-                <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.dataCadastro?.errors?.required" jhiTranslate="entity.validation.required">
-                   This field is required.
-                </small>
-                <small class="form-text text-danger"
-                    [hidden]="!editForm.controls.dataCadastro?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
-                    This field should be a date and time.
-                </small>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="form-control-label" jhiTranslate="softtestApp.processo.dataAtualizacao" for="field_dataAtualizacao">Data Atualizacao</label>
-            <div class="d-flex">
-                <input id="field_dataAtualizacao" type="datetime-local" class="form-control" name="dataAtualizacao" [(ngModel)]="processo.dataAtualizacao"
-                />
-            </div>
-        </div>
 
         <div class="form-group">
-            <label class="form-control-label" jhiTranslate="softtestApp.processo.usuarioCadastro" for="field_usuarioCadastro">Usuario Cadastro</label>
-            <select class="form-control" id="field_usuarioCadastro" name="usuarioCadastro" [(ngModel)]="processo.usuarioCadastro" >
-                <option [ngValue]="null"></option>
-                <option [ngValue]="userOption.id === processo.usuarioCadastro?.id ? processo.usuarioCadastro : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.id}}</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label class="form-control-label" jhiTranslate="softtestApp.processo.usuarioAtualizacao" for="field_usuarioAtualizacao">Usuario Atualizacao</label>
-            <select class="form-control" id="field_usuarioAtualizacao" name="usuarioAtualizacao" [(ngModel)]="processo.usuarioAtualizacao" >
-                <option [ngValue]="null"></option>
-                <option [ngValue]="userOption.id === processo.usuarioAtualizacao?.id ? processo.usuarioAtualizacao : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.id}}</option>
-            </select>
-        </div>
-        <div class="form-group">
             <label jhiTranslate="softtestApp.processo.usuariosParecer" for="field_usuariosParecer">Usuarios Parecer</label>
-            <select class="form-control" id="field_usuariosParecer" multiple name="usuariosParecer" [(ngModel)]="processo.usuariosParecers">
-                <option [ngValue]="getSelected(processo.usuariosParecers, userOption)" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.id}}</option>
+            <select class="form-control" id="field_usuariosParecer" multiple name="usuariosParecer" [(ngModel)]="processo.usuariosParecers" required [disabled]="processo.id">
+                <option [ngValue]="getSelected(processo.usuariosParecers, userOption)" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.firstName}} {{userOption.lastName}}</option>
             </select>
         </div>
+
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">

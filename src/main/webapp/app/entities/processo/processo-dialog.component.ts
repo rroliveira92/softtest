@@ -33,7 +33,7 @@ export class ProcessoDialogComponent implements OnInit {
 
     ngOnInit() {
         this.isSaving = false;
-        this.userService.query()
+        this.userService.queryFinalizadores()
             .subscribe((res: HttpResponse<User[]>) => { this.users = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
     }
 
@@ -43,12 +43,22 @@ export class ProcessoDialogComponent implements OnInit {
 
     save() {
         this.isSaving = true;
+        console.error(this.processo);
+        // this.checkPapel();
         if (this.processo.id !== undefined) {
             this.subscribeToSaveResponse(
                 this.processoService.update(this.processo));
         } else {
             this.subscribeToSaveResponse(
                 this.processoService.create(this.processo));
+        }
+    }
+
+    private checkPapel() {
+        for (const us of this.processo.usuariosParecers) {
+            console.error(typeof us.authorities);
+            const papel = [us.authorities];
+            us.authorities = papel;
         }
     }
 

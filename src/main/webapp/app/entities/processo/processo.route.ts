@@ -32,7 +32,7 @@ export const processoRoute: Routes = [
             'pagingParams': ProcessoResolvePagingParams
         },
         data: {
-            authorities: ['ROLE_ADMIN', 'ROLE_TRIADOR', 'ROLE_FINALIZADOR'],
+            authorities: ['ROLE_TRIADOR'],
             pageTitle: 'softtestApp.processo.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -40,7 +40,7 @@ export const processoRoute: Routes = [
         path: 'processo/:id',
         component: ProcessoDetailComponent,
         data: {
-            authorities: ['ROLE_ADMIN', 'ROLE_TRIADOR', 'ROLE_FINALIZADOR'],
+            authorities: ['ROLE_TRIADOR'],
             pageTitle: 'softtestApp.processo.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -52,7 +52,7 @@ export const processoPopupRoute: Routes = [
         path: 'processo-new',
         component: ProcessoPopupComponent,
         data: {
-            authorities: ['ROLE_ADMIN', 'ROLE_TRIADOR', 'ROLE_FINALIZADOR'],
+            authorities: ['ROLE_TRIADOR'],
             pageTitle: 'softtestApp.processo.home.title'
         },
         canActivate: [UserRouteAccessService],
@@ -62,7 +62,7 @@ export const processoPopupRoute: Routes = [
         path: 'processo/:id/edit',
         component: ProcessoPopupComponent,
         data: {
-            authorities: ['ROLE_ADMIN', 'ROLE_TRIADOR', 'ROLE_FINALIZADOR'],
+            authorities: ['ROLE_TRIADOR'],
             pageTitle: 'softtestApp.processo.home.title'
         },
         canActivate: [UserRouteAccessService],
@@ -72,7 +72,7 @@ export const processoPopupRoute: Routes = [
         path: 'processo/:id/delete',
         component: ProcessoDeletePopupComponent,
         data: {
-            authorities: ['ROLE_ADMIN', 'ROLE_TRIADOR', 'ROLE_FINALIZADOR'],
+            authorities: ['ROLE_TRIADOR'],
             pageTitle: 'softtestApp.processo.home.title'
         },
         canActivate: [UserRouteAccessService],

@@ -3,9 +3,10 @@
     "softtestApp": {
         "parecer" : {
             "home": {
-                "title": "Parecers",
+                "title": "Lista de Pareceres",
                 "createLabel": "Criar novo Parecer",
-                "createOrEditLabel": "Criar ou editar Parecer"
+                "createLabelForm": "Criar Parecer",
+                "editLabel": "Editar Parecer"
             },
             "created": "Um novo Parecer foi criado com o identificador {{ param }}",
             "updated": "Um Parecer foi atualizado com o identificador {{ param }}",
@@ -17,9 +18,9 @@
                 "title": "Parecer"
             },
             "parecer": "Parecer",
-            "dataCadastro": "Data Cadastro",
-            "dataAtualizacao": "Data Atualizacao",
-            "usuario": "Usuario",
+            "dataCadastro": "Data de Cadastro",
+            "dataAtualizacao": "Data de Atualização",
+            "usuario": "Usuário",
             "processo": "Processo"
         }
     }

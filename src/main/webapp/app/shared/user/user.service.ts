@@ -29,6 +29,11 @@ export class UserService {
         return this.http.get<User[]>(this.resourceUrl, { params: options, observe: 'response' });
     }
 
+    queryFinalizadores(req?: any): Observable<HttpResponse<User[]>> {
+        const options = createRequestOption(req);
+        return this.http.get<User[]>(this.resourceUrl + 'finalizadores', { params: options, observe: 'response' });
+    }
+
     delete(login: string): Observable<HttpResponse<any>> {
         return this.http.delete(`${this.resourceUrl}/${login}`, { observe: 'response' });
     }

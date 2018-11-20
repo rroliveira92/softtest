@@ -1,9 +1,12 @@
 {
     "userManagement": {
         "home": {
-            "title": "Usuários",
+            "title": "Lista de Usuários",
             "createLabel": "Adicionar",
-             "createOrEditLabel": "Criar ou editar usuário"
+            "createOrEditLabel": "Criar ou editar usuário",
+            "editLabel": "Editar Usuário",
+            "createLabelForm": "Adicionar Usuário"
+
         },
         "created": "Novo usuário foi criado com a identificação {{ param }}",
         "updated": "Usuário com a identificação {{ param }} foi atualizado ",
@@ -20,11 +23,11 @@
         "email": "Email",
         "activated": "Ativo",
         "deactivated": "Inativo",
-        "profiles": "Perfis",
+        "profiles": "Perfil",
         "langKey": "Idioma",
-        "createdBy": "Criado por",
-        "createdDate": "Criado em",
-        "lastModifiedBy": "Alterado por",
-        "lastModifiedDate": "Alterado em"
+        "createdBy": "Usuário de Cadastro",
+        "createdDate": "Data de Cadastro",
+        "lastModifiedBy": "Usuário de Alteração",
+        "lastModifiedDate": "Data de Alteração"
     }
 }

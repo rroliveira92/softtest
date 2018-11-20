@@ -4,6 +4,8 @@ import com.br.se.r92.domain.Parecer;
 import org.springframework.stereotype.Repository;
 
 import org.springframework.data.jpa.repository.*;
+import org.springframework.data.repository.query.Param;
+
 import java.util.List;
 
 /**
@@ -15,5 +17,8 @@ public interface ParecerRepository extends JpaRepository<Parecer, Long>, JpaSpec
 
     @Query("select tb_parecer from Parecer tb_parecer where tb_parecer.usuario.login = ?#{principal.username}")
     List<Parecer> findByUsuarioIsCurrentUser();
+
+    @Query("select tb_parecer from Parecer tb_parecer where tb_parecer.processo.id = :id")
+    List<Parecer> findAllByIdProcesso(@Param("id") Long id);
 
 }

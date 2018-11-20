@@ -54,7 +54,7 @@ public class ParecerResource {
      */
     @PostMapping("/parecers")
     @Timed
-    public ResponseEntity<Parecer> createParecer(@Valid @RequestBody Parecer parecer) throws URISyntaxException {
+    public ResponseEntity<Parecer> createParecer(@RequestBody Parecer parecer) throws URISyntaxException {
         log.debug("REST request to save Parecer : {}", parecer);
         if (parecer.getId() != null) {
             throw new BadRequestAlertException("A new parecer cannot already have an ID", ENTITY_NAME, "idexists");

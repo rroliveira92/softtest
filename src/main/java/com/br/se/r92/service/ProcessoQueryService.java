@@ -1,21 +1,28 @@
 package com.br.se.r92.service;
 
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import io.github.jhipster.service.QueryService;
+import io.github.jhipster.service.filter.LongFilter;
 
 import com.br.se.r92.domain.Processo;
 import com.br.se.r92.domain.*; // for static metamodels
 import com.br.se.r92.repository.ProcessoRepository;
+import com.br.se.r92.repository.UserRepository;
+import com.br.se.r92.security.AuthoritiesConstants;
+import com.br.se.r92.security.SecurityUtils;
 import com.br.se.r92.service.dto.ProcessoCriteria;
 
 
@@ -33,9 +40,11 @@ public class ProcessoQueryService extends QueryService<Processo> {
 
 
     private final ProcessoRepository processoRepository;
+    private final UserRepository userRepository;
 
-    public ProcessoQueryService(ProcessoRepository processoRepository) {
+    public ProcessoQueryService(ProcessoRepository processoRepository, UserRepository userRepository) {
         this.processoRepository = processoRepository;
+        this.userRepository = userRepository;
     }
 
     /**
@@ -59,6 +68,19 @@ public class ProcessoQueryService extends QueryService<Processo> {
     @Transactional(readOnly = true)
     public Page<Processo> findByCriteria(ProcessoCriteria criteria, Pageable page) {
         log.debug("find by criteria : {}, page: {}", criteria, page);
+        User user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin().get()).get();        
+        LongFilter longFilter = new LongFilter();
+        if(SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.TRIADOR)) {
+        	longFilter.setEquals(user.getId());
+        	criteria.setUsuarioCadastroId(longFilter);
+        }else {
+			List<Long> processosIds = processoRepository.findByUsuarioParecer(user.getId()).stream().map(p -> p.getId()).collect(Collectors.toList());
+			if(processosIds == null || processosIds.size() == 0) {
+				return new PageImpl<>(new ArrayList<>());
+			}
+        	longFilter.setIn(processosIds);
+        	criteria.setId(longFilter);
+        }
         final Specifications<Processo> specification = createSpecification(criteria);
         return processoRepository.findAll(specification, page);
     }

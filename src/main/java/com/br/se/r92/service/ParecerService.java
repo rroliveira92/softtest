@@ -1,7 +1,13 @@
 package com.br.se.r92.service;
 
+import java.util.List;
+
 import com.br.se.r92.domain.Parecer;
+import com.br.se.r92.domain.User;
 import com.br.se.r92.repository.ParecerRepository;
+import com.br.se.r92.repository.UserRepository;
+import com.br.se.r92.security.SecurityUtils;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -20,9 +26,12 @@ public class ParecerService {
     private final Logger log = LoggerFactory.getLogger(ParecerService.class);
 
     private final ParecerRepository parecerRepository;
+    
+    private final UserRepository userRepository;
 
-    public ParecerService(ParecerRepository parecerRepository) {
+    public ParecerService(ParecerRepository parecerRepository, UserRepository userRepository) {
         this.parecerRepository = parecerRepository;
+        this.userRepository = userRepository;
     }
 
     /**
@@ -33,6 +42,10 @@ public class ParecerService {
      */
     public Parecer save(Parecer parecer) {
         log.debug("Request to save Parecer : {}", parecer);
+        User user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin().get()).get();
+        if (parecer.getId() == null) {
+        	parecer.setUsuario(user);
+        }
         return parecerRepository.save(parecer);
     }
 
@@ -68,5 +81,15 @@ public class ParecerService {
     public void delete(Long id) {
         log.debug("Request to delete Parecer : {}", id);
         parecerRepository.delete(id);
+    }
+
+    /**
+     * Get all parecer by id Processo
+     *
+     * @param id the id of processo
+     * @return list of parecer
+     */
+    public List<Parecer> getAllByProcesso(Long idProcesso){
+        return parecerRepository.findAllByIdProcesso(idProcesso);
     }
 }

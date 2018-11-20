@@ -6,25 +6,12 @@ import { SofttestSharedModule } from '../shared';
 
 import {
     adminState,
-    AuditsComponent,
     UserMgmtComponent,
     UserDialogComponent,
     UserDeleteDialogComponent,
     UserMgmtDetailComponent,
     UserMgmtDialogComponent,
     UserMgmtDeleteDialogComponent,
-    LogsComponent,
-    JhiMetricsMonitoringModalComponent,
-    JhiMetricsMonitoringComponent,
-    JhiHealthModalComponent,
-    JhiHealthCheckComponent,
-    JhiConfigurationComponent,
-    JhiDocsComponent,
-    AuditsService,
-    JhiConfigurationService,
-    JhiHealthService,
-    JhiMetricsService,
-    LogsService,
     UserResolvePagingParams,
     UserResolve,
     UserModalService
@@ -37,33 +24,18 @@ import {
         /* jhipster-needle-add-admin-module - JHipster will add admin modules here */
     ],
     declarations: [
-        AuditsComponent,
         UserMgmtComponent,
         UserDialogComponent,
         UserDeleteDialogComponent,
         UserMgmtDetailComponent,
         UserMgmtDialogComponent,
-        UserMgmtDeleteDialogComponent,
-        LogsComponent,
-        JhiConfigurationComponent,
-        JhiHealthCheckComponent,
-        JhiHealthModalComponent,
-        JhiDocsComponent,
-        JhiMetricsMonitoringComponent,
-        JhiMetricsMonitoringModalComponent
+        UserMgmtDeleteDialogComponent
     ],
     entryComponents: [
         UserMgmtDialogComponent,
-        UserMgmtDeleteDialogComponent,
-        JhiHealthModalComponent,
-        JhiMetricsMonitoringModalComponent,
+        UserMgmtDeleteDialogComponent
     ],
     providers: [
-        AuditsService,
-        JhiConfigurationService,
-        JhiHealthService,
-        JhiMetricsService,
-        LogsService,
         UserResolvePagingParams,
         UserResolve,
         UserModalService

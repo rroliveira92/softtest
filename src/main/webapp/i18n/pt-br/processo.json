@@ -3,9 +3,10 @@
     "softtestApp": {
         "processo" : {
             "home": {
-                "title": "Processos",
+                "title": "Lista de Processos",
                 "createLabel": "Criar novo Processo",
-                "createOrEditLabel": "Criar ou editar Processo"
+                "createLabelForm": "Criar Processo",
+                "editLabel": "Editar Processo"
             },
             "created": "Um novo Processo foi criado com o identificador {{ param }}",
             "updated": "Um Processo foi atualizado com o identificador {{ param }}",
@@ -16,12 +17,13 @@
             "detail": {
                 "title": "Processo"
             },
-            "descricao": "Descricao",
-            "dataCadastro": "Data Cadastro",
-            "dataAtualizacao": "Data Atualizacao",
-            "usuarioCadastro": "Usuario Cadastro",
-            "usuarioAtualizacao": "Usuario Atualizacao",
-            "usuariosParecer": "Usuarios Parecer"
+            "descricao": "Descrição",
+            "descricaoProcesso": "Descrição do Processo",
+            "dataCadastro": "Data de Cadastro",
+            "dataAtualizacao": "Data de Atualização",
+            "usuarioCadastro": "Usuario de Cadastro",
+            "usuarioAtualizacao": "Usuario de Atualização",
+            "usuariosParecer": "Usuários preencher Parecer"
         }
     }
 }

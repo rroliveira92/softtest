@@ -19,6 +19,10 @@ public interface ProcessoRepository extends JpaRepository<Processo, Long>, JpaSp
 
     @Query("select tb_processo from Processo tb_processo where tb_processo.usuarioAtualizacao.login = ?#{principal.username}")
     List<Processo> findByUsuarioAtualizacaoIsCurrentUser();
+    
+    @Query("select tb_processo from Processo tb_processo inner join tb_processo.usuariosParecers up where up.id = :id")
+    List<Processo> findByUsuarioParecer(@Param("id") Long id);
+    
     @Query("select distinct tb_processo from Processo tb_processo left join fetch tb_processo.usuariosParecers")
     List<Processo> findAllWithEagerRelationships();
 
