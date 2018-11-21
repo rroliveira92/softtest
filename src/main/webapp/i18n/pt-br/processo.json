@@ -23,7 +23,8 @@
             "dataAtualizacao": "Data de Atualização",
             "usuarioCadastro": "Usuario de Cadastro",
             "usuarioAtualizacao": "Usuario de Atualização",
-            "usuariosParecer": "Usuários preencher Parecer"
+            "usuariosParecer": "Usuários para preencher Parecer",
+            "parecerRealizados": "Lista com Pareceres já realizados"
         }
     }
 }

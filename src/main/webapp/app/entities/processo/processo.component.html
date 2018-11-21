@@ -9,7 +9,33 @@
         </button>
     </h2>
     <jhi-alert></jhi-alert>
-    <div class="row">
+    <div class="row padding15">
+        <form name="searchForm" class="form-inline">
+            <div class="input-group">
+                <input  class="form-control rightTop"
+                        type="number"
+                        name="idProcesso"
+                        placeholder="{{'global.field.id' | translate}}"
+                        ngbTooltip="{{'global.field.id' | translate}}"
+                        [(ngModel)]="criteria.idProcesso">
+            </div>
+
+            <div class="input-group">
+                <input  class="form-control rightTop"
+                        type="text"
+                        name="descricaoProcesso"
+                        placeholder="{{'softtestApp.processo.descricao' | translate}}"
+                        ngbTooltip="{{'softtestApp.processo.descricao' | translate}}"
+                        [(ngModel)]="criteria.descricaoProcesso">
+            </div>
+            
+            <button class="input-group-addon btn btn-info rightTop" (click)="search(criteria)">
+                <span class="fa fa-search"></span>
+            </button>
+            <button class="input-group-addon btn btn-danger rightTop float-right" (click)="clear(criteria)" *ngIf="criteria.areSet()">
+                <span class="fa fa-trash-o"></span>
+            </button>
+        </form>
     </div>
     <br/>
     <div class="table-responsive" *ngIf="processos">

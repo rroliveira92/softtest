@@ -28,6 +28,7 @@ currentAccount: any;
     predicate: any;
     previousPage: any;
     reverse: any;
+    criteria: any;
 
     constructor(
         private processoService: ProcessoService,
@@ -44,14 +45,45 @@ currentAccount: any;
             this.previousPage = data.pagingParams.page;
             this.reverse = data.pagingParams.ascending;
             this.predicate = data.pagingParams.predicate;
+            this.criteria = {
+                idProcesso: null,
+                descricaoProcesso: null,
+                areSet() {
+                    return this.idProcesso != null || this.descricaoProcesso != null;
+                },
+                clear() {
+                    this.idProcesso = null;
+                    this.descricaoProcesso = null;
+                }
+            };
         });
     }
 
+    search(criteria) {
+        if (criteria.areSet()) {
+            this.processos = [];
+            this.loadAll();
+        }
+    }
+
     loadAll() {
+        const criteria = [];
+
+        if (this.criteria.areSet()) {
+            if (this.criteria.idProcesso != null) {
+                criteria.push({key: 'id.equals', value: this.criteria.idProcesso});
+            }
+            if (this.criteria.descricaoProcesso) {
+                criteria.push({key: 'descricao.contains', value: this.criteria.descricaoProcesso});
+            }
+        }
+
         this.processoService.query({
             page: this.page - 1,
             size: this.itemsPerPage,
-            sort: this.sort()}).subscribe(
+            sort: this.sort(),
+            criteria
+        }).subscribe(
                 (res: HttpResponse<Processo[]>) => this.onSuccess(res.body, res.headers),
                 (res: HttpErrorResponse) => this.onError(res.message)
         );
@@ -75,6 +107,7 @@ currentAccount: any;
 
     clear() {
         this.page = 0;
+        this.criteria.clear();
         this.router.navigate(['/processo', {
             page: this.page,
             sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')

@@ -28,6 +28,7 @@ currentAccount: any;
     predicate: any;
     previousPage: any;
     reverse: any;
+    criteria: any;
 
     constructor(
         private parecerService: ParecerService,
@@ -44,14 +45,44 @@ currentAccount: any;
             this.previousPage = data.pagingParams.page;
             this.reverse = data.pagingParams.ascending;
             this.predicate = data.pagingParams.predicate;
+            this.criteria = {
+                idParecer: null,
+                parecer: null,
+                areSet() {
+                    return this.idParecer != null || this.parecer != null;
+                },
+                clear() {
+                    this.idParecer = null;
+                    this.parecer = null;
+                }
+            };
         });
     }
 
+    search(criteria) {
+        if (criteria.areSet()) {
+            this.parecers = [];
+            this.loadAll();
+        }
+    }
+
     loadAll() {
+        const criteria = [];
+
+        if (this.criteria.areSet()) {
+            if (this.criteria.idParecer != null) {
+                criteria.push({key: 'id.equals', value: this.criteria.idParecer});
+            }
+            if (this.criteria.parecer) {
+                criteria.push({key: 'parecer.contains', value: this.criteria.parecer});
+            }
+        }
         this.parecerService.query({
             page: this.page - 1,
             size: this.itemsPerPage,
-            sort: this.sort()}).subscribe(
+            sort: this.sort(),
+            criteria
+        }).subscribe(
                 (res: HttpResponse<Parecer[]>) => this.onSuccess(res.body, res.headers),
                 (res: HttpErrorResponse) => this.onError(res.message)
         );
@@ -75,6 +106,7 @@ currentAccount: any;
 
     clear() {
         this.page = 0;
+        this.criteria.clear();
         this.router.navigate(['/parecer', {
             page: this.page,
             sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')

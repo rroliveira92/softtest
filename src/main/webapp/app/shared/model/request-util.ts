@@ -5,7 +5,9 @@ export const createRequestOption = (req?: any): HttpParams => {
     if (req) {
         Object.keys(req).forEach((key) => {
             if (key !== 'sort') {
-                options = options.set(key, req[key]);
+               if (key !== 'criteria') {
+                    options = options.set(key, req[key]);
+                }
             }
         });
         if (req.sort) {
@@ -13,6 +15,12 @@ export const createRequestOption = (req?: any): HttpParams => {
                 options = options.append('sort', val);
             });
         }
+        if (req.criteria && req.criteria.length > 0) {
+            req.criteria.forEach((criterion) => {
+                options = options.append(criterion.key, criterion.value);
+            });
+        }
     }
     return options;
+
 };

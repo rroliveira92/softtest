@@ -15,9 +15,19 @@
         <dt><span jhiTranslate="softtestApp.processo.usuariosParecer">Usuarios Parecer</span></dt>
         <dd>
             <span *ngFor="let usuariosParecer of processo.usuariosParecers; let last = last">
-                {{usuariosParecer.id}}{{last ? '' : ', '}}
+                {{usuariosParecer.firstName}} {{usuariosParecer.lastName}}{{last ? '' : ', '}}
             </span>
         </dd>
+        <dl class="row-md jh-entity-details" *ngIf="processo.id">
+            <dt><span jhiTranslate="softtestApp.processo.parecerRealizados">Lista com Pareceres já realizados</span></dt>
+            <dd>
+                <span *ngFor="let parecer of parecers;">
+                    <li>
+                        {{parecer.usuario.firstName}} {{parecer.usuario.lastName}} - {{parecer.parecer}}
+                    </li>
+                </span>
+            </dd>
+        </dl>
     </dl>
 
     <button type="submit"
